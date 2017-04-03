@@ -43,7 +43,7 @@ MOUSE_RIGHT = 3
 #Scenes self.nextScene commands, used to tell SceneHandler what next scene to run after this one ends
 TITLE_SCENE = 0
 WHITE_TITLE_SCENE = 1
-LEVEL_ONE_SCENE = 2
+LEVEL_ONE_SCENE = 911
 
 PLATFORM_SCREEN = 42
 
@@ -138,6 +138,6 @@ TAG_PHIL = 0
 
 # Load settings_local.py if exist
 try:
-    from app.settings_local import *
+    from app.Settings_local import *
 except ImportError:
     pass
