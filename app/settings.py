@@ -43,7 +43,9 @@ MOUSE_RIGHT = 3
 #Scenes self.nextScene commands, used to tell SceneHandler what next scene to run after this one ends
 TITLE_SCENE = 0
 WHITE_TITLE_SCENE = 1
-LEVEL_ONE_SCENE = 911
+LEVEL_ONE_SCENE = 3
+GAME_OVER_SCREEN = 4
+CREDIT_SCREEN = 5
 
 PLATFORM_SCREEN = 42
 
@@ -138,6 +140,6 @@ TAG_PHIL = 0
 
 # Load settings_local.py if exist
 try:
-    from app.Settings_local import *
+    from test_tiled.app_test_tiled.Settings_local import *
 except ImportError:
     pass

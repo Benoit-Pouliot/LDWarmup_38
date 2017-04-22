@@ -5,7 +5,7 @@ import pygame
 
 from test_tiled.app_test_tiled.scene.sceneHandler import SceneHandler
 from test_tiled.app_test_tiled.scene.titleScreen.titleScreen import TitleScreen
-from app.Settings import *
+from app.settings import *
 
 if __name__ == '__main__':
     #Code to check if the code is running from a PyInstaller --onefile .exe

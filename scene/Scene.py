@@ -5,7 +5,7 @@ from scene.Drawer import Drawer
 
 
 class Scene:
-    def __init__(self,screen,data,logicHandler,gameData=None, player = None,mapTMX=None):
+    def __init__(self,screen,data,logicHandler,gameData=None, player = None):
         # Screen
         self.gameData = gameData
         self.nextScene = None

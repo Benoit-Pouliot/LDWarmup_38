@@ -25,8 +25,6 @@ class CollisionPlayerPlatform:
                 self.downCollision(sprite, mapData)
                 self.upCollision(sprite, mapData)
 
-                self.collisionWithObstacle(sprite, mapData.obstacleGroup)
-                self.collisionWithMine(sprite, mapData.mineGroup)
         self.collisionWithEnemy(player, mapData.enemyGroup)
         self.pickUpItem(player, mapData.itemGroup, gameData)
 

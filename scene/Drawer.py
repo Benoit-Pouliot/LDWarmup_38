@@ -11,10 +11,9 @@ class Drawer:
     def draw(self, screen, sprites, spritesHUD, player):
         if isinstance(sprites, pygame.sprite.Group):
             sprites.draw(screen)
-        elif isinstance(sprites, pyscroll.BufferedRenderer) and player != None:
+        elif isinstance(sprites, pyscroll.PyscrollGroup) and player != None:
             sprites.center((player.rect.centerx, player.rect.centery - (HUD_HEIGHT / 2)))
             sprites.draw(screen)
-
 
         spritesHUD.draw(screen)
         pygame.display.flip()

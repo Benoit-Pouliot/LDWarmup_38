@@ -1,16 +1,22 @@
-import pygame
 import pyscroll
 import pytmx
 import pygame
-from app.settings import *
-from app.tools.functionTools import *
 import os
+import weakref
 
+from app.settings import *
+from app.sprites.playerPlatform import PlayerPlatform
 from app.sprites.enemyFactory import EnemyFactory
-from app.sprites.itemFactory import ItemFactory
 
-class MapData:
-    def __init__(self, mapName="WorldMap", nameInZone="StartPointWorld", screenSize=(SCREEN_WIDTH, SCREEN_HEIGHT)):
+class PlatformSceneData:
+    def __init__(self,mapName="WorldMap", nameInZone="StartPointWorld", screenSize=(SCREEN_WIDTH, SCREEN_HEIGHT)):
+        self.nextScene = None
+
+        self.notifySet = weakref.WeakSet()
+        self.allSprites = pygame.sprite.Group()
+        self.spritesHUD = pygame.sprite.Group()
+
+        # DEBUT MAP DATA
 
         self.nameMap = mapName
 
@@ -27,7 +33,6 @@ class MapData:
         self.spritesHUD = pygame.sprite.Group()
 
         eFactory = EnemyFactory()
-        iFactory = ItemFactory()
 
         for obj in self.tmxData.objects:
             if obj.type == "enemy":
@@ -35,10 +40,10 @@ class MapData:
                 self.allSprites.add(enemy)
                 self.enemyGroup.add(enemy)
 
-            # if obj.type == "item":
-            #     item = iFactory.create(obj)
-            #     self.allSprites.add(item)
-            #     self.itemGroup.add(item)
+                # if obj.type == "item":
+                #     item = iFactory.create(obj)
+                #     self.allSprites.add(item)
+                #     self.itemGroup.add(item)
 
         # Put camera in mapData
         self.camera = pyscroll.PyscrollGroup(map_layer=self.cameraPlayer, default_layer=SPRITE_LAYER)
@@ -53,9 +58,19 @@ class MapData:
                     self.spawmPointPlayery = obj.y
                     valBool = True
 
-        # The game is not complete?
-        if valBool == False:
-            quitGame()
+        self.player = PlayerPlatform(self.spawmPointPlayerx, self.spawmPointPlayery, self)
+
+        self.allSprites.add(self.player)
+        self.camera.add(self.player)
+
+    def close(self):
+        self.sceneRunning = False
+
+    def backToMain(self):
+        self.nextScene = TITLE_SCENE
+        self.gameData.typeScene = TITLE_SCENE
+
+        self.close()
 
     def reqImageName(self, nameMap):
         return os.path.join('tiles_map', nameMap + ".tmx")

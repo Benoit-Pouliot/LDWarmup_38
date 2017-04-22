@@ -1,29 +1,29 @@
-from app.scene.platformScene.MapData import MapData
-from app.sprites.Bullet import *
+from app.scene.platformScene.PlatformSceneData import PlatformSceneData
+from app.sprites.bullet import *
 from app.settings import *
-from app.scene.platformScene.collisionPlayerPlatform import CollisionPlayerPlatform
+from app.scene.platformScene.CollisionPlayerPlatform import CollisionPlayerPlatform
 from app.tools.functionTools import *
 import pygame
 
 class PlatformSceneLogicHandler:
-    def __init__(self, screen, player, mapData):
+    def __init__(self, gameData):
 
         self.sceneRunning = True
         self.endState = None
-        self.collisionChecker = CollisionPlayerPlatform(player, mapData)
         self.newMapData = None
-        self.mapData = mapData
+        self.gameData = gameData
+        self.mapData = gameData.mapData
+        self.player = gameData.mapData.player
+        self.collisionChecker = CollisionPlayerPlatform(self.player, self.mapData)
 
-        self.screen = screen
-
-    def handle(self, player, gameData):
+    def handle(self):
         self.applyGravity(self.mapData.allSprites)
         self.applyFriction(self.mapData.allSprites)
-        self.collisionChecker.collisionAllSprites(player, self.mapData, gameData)
-        self.handleZoneCollision(player)
+        self.collisionChecker.collisionAllSprites(self.player, self.mapData, self.gameData)
+        self.handleZoneCollision(self.player)
         self.mapData.allSprites.update()
-        self.handleBullets(self.mapData, player)
-        self.gameOverCondition(player)
+        self.handleBullets(self.mapData, self.player)
+        self.gameOverCondition(self.player)
 
     def handleZoneCollision(self, player):
         for obj in self.mapData.tmxData.objects:
@@ -33,7 +33,7 @@ class PlatformSceneLogicHandler:
                     nameInZone = obj.InZone
 
                     # Initializing new map
-                    self.newMapData = MapData(nameNewZone, nameInZone)
+                    self.newMapData = PlatformSceneData(nameNewZone, nameInZone)
 
     def isPlayerIsInZone(self, player, zone):
 

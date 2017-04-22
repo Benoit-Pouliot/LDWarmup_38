@@ -30,10 +30,15 @@ class TitleScreenData:
         self.createStartMenu()
 
     def createStartMenu(self):
-        self.whiteTitleButton = Button((400, 10 * SCREEN_HEIGHT / 20), (300, 50), 'Go to white Title Screen',
+        self.whiteTitleButton = Button((400, 5 * SCREEN_HEIGHT / 20), (300, 50), 'Go to white Title Screen',
                                        self.goToWhiteTitleScene)
         self.spritesHUD.add(self.whiteTitleButton)
         self.notifySet.add(self.whiteTitleButton)
+
+        self.goToMapButton = Button((400, 10 * SCREEN_HEIGHT / 20), (300, 50), 'Go to Level One',
+                                       self.goToMap)
+        self.spritesHUD.add(self.goToMapButton)
+        self.notifySet.add(self.goToMapButton)
 
         self.exitButton = Button((400, 15 * SCREEN_HEIGHT / 20), (300, 50), 'Exit', sys.exit)
         self.spritesHUD.add(self.exitButton)
@@ -41,6 +46,9 @@ class TitleScreenData:
 
     def goToWhiteTitleScene(self):
         self.nextScene = WHITE_TITLE_SCENE
+
+    def goToMap(self):
+        self.nextScene = LEVEL_ONE_SCENE
 
     def startGame(self):
         self.nextScene = LEVEL_ONE_SCENE

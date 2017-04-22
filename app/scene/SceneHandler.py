@@ -3,7 +3,8 @@ from app.scene.titleScreen.TitleScreenData import TitleScreenData
 from app.scene.titleScreen.TitleScreenLogicHandler import TitleScreenLogicHandler
 from app.scene.whiteTitleScene.WhiteTitleSceneData import WhiteTitleSceneData
 from app.scene.whiteTitleScene.WhiteTitleSceneLogicHandler import WhiteTitleSceneLogicHandler
-from app.scene.plateformScene.PlatformSceneLogicHandler import PlatformSceneLogicHandler
+from app.scene.platformScene.PlatformSceneLogicHandler import PlatformSceneLogicHandler
+from app.scene.platformScene.PlatformSceneData import PlatformSceneData
 
 from app.GameData import GameData
 
@@ -35,5 +36,5 @@ class SceneHandler:
             whiteTitleSceneData = WhiteTitleSceneData()
             self.runningScene = Scene(self.screen, whiteTitleSceneData, WhiteTitleSceneLogicHandler(whiteTitleSceneData))
         elif self.runningScene.nextScene == LEVEL_ONE_SCENE:
-            self.gameData.mapData = MapData("LevelRoom", "StartPointWorld", self.gameData.currentLevel)
-            self.runningScene = Scene(self.screen, self.gameData.mapData, PlatformSceneLogicHandler(self.gameData.mapData),self.gameData)
+            self.gameData.mapData = PlatformSceneData("example_tiled", "InZone_01")
+            self.runningScene = Scene(self.screen, self.gameData.mapData, PlatformSceneLogicHandler(self.gameData),self.gameData,self.gameData.mapData.player)
